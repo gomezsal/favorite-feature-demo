@@ -1,66 +1,42 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta
-    name="viewport"
-    content="width=device-width"
-  >
-  <title>Favourite Pokemon</title>
-
-  <!-- Pokemon Font via https://www.cdnfonts.com/pokemon-solid.font -->
-  <link
-    href="https://fonts.cdnfonts.com/css/pokemon-solid"
-    rel="stylesheet"
-  >
-
-  <!-- Dom Purify library helps to Sanitize dynamic HTML strings.-->
-  <script
-    src="https://cdn.jsdelivr.net/npm/dompurify@3.2.7/dist/purify.min.js"
-    integrity="sha256-QM/0krVDU6Vc35/7NpeGU5/7fVTSX5fdSh6JdbMJw10="
-    crossorigin="anonymous"
-  ></script>
-
-  <!-- Twentieth Century font via Monotype.com --->
-  <link
-    href="https://cdn.fonts.net/kit/7b6b1e00-8b68-11ec-9ce3-0220834439f4/7b6b1e00-8b68-11ec-9ce3-0220834439f4.css"
-    rel="stylesheet"
-  />
-
-  <link
-    href="style.css"
-    rel="stylesheet"
-    type="text/css"
-  />
-  <!-- Use a Pokemon Coloured Base64 Pixel as Favicon. see also: https://png-pixel.com/ -->
-  <link
-    href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8HxzwHwAGXgKT5yJ2+AAAAABJRU5ErkJggg=="
-    rel="icon"
-    type="image/x-icon"
-  >
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teams and Players</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://use.typekit.net/qvx3vuo.css">
 </head>
-
 <body>
-  <header>
-    <img src="pokeball.svg">
-    <h1>Favourite Pokemon</h1>
-  </header>
-  <nav></nav>
-  <main></main>
-  <footer>
-    <p>This is a community-curated collection. Any user can add or remove Pokemon. Shared responsibility for moderation.
-    </p>
+    <nav>
+        <button class="nav-btn active" data-section="home">Home</button>
+        <button class="nav-btn" data-section="favourites">Favourites</button>
+        <button class="nav-btn" data-section="create-team">Create a Team</button>
+    </nav>
+    <header>
+        <h1>The League Lens</h1>
+    </header>
 
-    <p>This demo illustrates how we can combine Third Party Data from <a href="https://pokeapi.co"></a>PokeAPI with
-      our own backend API. The app allows users to mark Third Party data (pokemon) as 'favourites' by storing them in
-      MongoDB.</p>
+    <div class="controls">
+        <select id="leagueSelect">
+            <option value="">Select a League</option>
+            <option value="140">La Liga (Spain)</option>
+            <option value="39">Premier League (England)</option>
+            <option value="78">Bundesliga (Germany)</option>
+            <option value="135">Serie A (Italy)</option>
+            <option value="61">Ligue 1 (France)</option>
+        </select>
+        <button id="loadTeamsBtn">SEARCH TEAM</button>
+    </div>
 
-  </footer>
-  <script
-    src="main.js"
-    type="module"
-  ></script>
+    <div id="loading" class="loading" style="display: none;">
+        loading...
+    </div>
+
+    <main></main>
+
+    <script src="./main.js" type="module"></script>
 </body>
-
 </html>
+
+

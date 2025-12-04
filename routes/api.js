@@ -1,14 +1,11 @@
-// Below we will use the Express Router to define a series of API endpoints.
-// Express will listen for API requests and respond accordingly
+// API routes for managing favorite players
 import express from 'express'
 const router = express.Router()
 
 // Set this to match the model name in your Prisma schema
 const model = 'item'
 
-// Prisma lets NodeJS communicate with MongoDB
-// Let's import and initialize the Prisma client
-// See also: https://www.prisma.io/docs
+// Import and initialize the Prisma client
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
@@ -19,48 +16,35 @@ prisma.$connect().then(() => {
     console.error('Failed to connect to MongoDB:', err)
 })
 
-// Note: This is a community-curated collection where any user can add or remove items.
-// No user tracking or authentication is required.
-
-// ----- Toggle Item (Add/Remove) -----
-// For any given Pokemon, if it exists in the collection, remove it.
-// If it doesn't exist, add it with basic data from PokeAPI.
-
+// ----- Toggle Player (Add/Remove from Favorites) -----
 router.post('/data', async (req, res) => {
     try {
-        const { name, url } = req.body
+        const { id, data } = req.body
 
-        if (!name || !url) {
-            return res.status(400).send({ error: 'Invalid pokemon data. Must include name and url.' })
+        if (!id || !data) {
+            return res.status(400).send({ error: 'Invalid player data. Must include id and data.' })
         }
 
-        // Extract ID from URL (e.g., "25" from "https://pokeapi.co/api/v2/pokemon/25/")
-        const id = url.split('/').filter(e => Number(e)).pop()
-
-        if (!id) {
-            return res.status(400).send({ error: 'Could not extract ID from pokemon URL.' })
-        }
-
-        // Check if this pokemon already exists in the collection
+        // Check if this player already exists in favorites
         const existing = await prisma[model].findFirst({
             where: {
-                id: id
+                id: id.toString()
             }
         })
 
         let action, item
         if (existing) {
-            // Already in collection, so remove it
+            // Already in favorites, so remove it
             item = await prisma[model].delete({
                 where: { id: existing.id }
             })
             action = 'removed'
         } else {
-            // Not in collection, so add it
+            // Not in favorites, so add it
             item = await prisma[model].create({
                 data: {
-                    id: id,
-                    data: { name, url }
+                    id: id.toString(),
+                    data: data
                 }
             })
             action = 'added'
@@ -73,15 +57,13 @@ router.post('/data', async (req, res) => {
 
     } catch (err) {
         console.error('POST /data error:', err)
-        res.status(500).send({ error: 'Failed to toggle item', details: err.message || err })
+        res.status(500).send({ error: 'Failed to toggle player', details: err.message || err })
     }
 })
 
-
-// ----- READ (GET) all items ----- 
+// ----- READ (GET) all favorite players ----- 
 router.get('/data', async (req, res) => {
     try {
-        // Get all items from the collection
         const items = await prisma[model].findMany({
             orderBy: { id: 'asc' }
         })
@@ -89,20 +71,18 @@ router.get('/data', async (req, res) => {
         res.send(items)
     } catch (err) {
         console.error('GET /data error:', err)
-        res.status(500).send({ error: 'Failed to fetch items', details: err.message || err })
+        res.status(500).send({ error: 'Failed to fetch players', details: err.message || err })
     }
 })
 
-
-// ----- READ (GET) single item by ID ----- 
-router.get('/data/:pokemonId', async (req, res) => {
+// ----- READ (GET) single player by ID ----- 
+router.get('/data/:playerId', async (req, res) => {
     try {
-        const pokemonId = req.params.pokemonId
+        const playerId = req.params.playerId
 
-        // Find item by ID
         const item = await prisma[model].findUnique({
             where: {
-                id: pokemonId
+                id: playerId
             }
         })
 
@@ -112,13 +92,9 @@ router.get('/data/:pokemonId', async (req, res) => {
         })
 
     } catch (err) {
-        console.error('GET /data/:pokemonId error:', err)
-        res.status(500).send({ error: 'Failed to fetch item', details: err.message || err })
+        console.error('GET /data/:playerId error:', err)
+        res.status(500).send({ error: 'Failed to fetch player', details: err.message || err })
     }
 })
 
-
-// export the api routes for use elsewhere in our app 
-// (e.g. in index.js )
-export default router;
-
+export default router

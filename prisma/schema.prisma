@@ -7,8 +7,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Generic model for storing data copied from third-party APIs
+// Model for storing favorite players
 model item {
-  id   String @id @map("_id") // e.g. "25" for Pikachu - derived from third-party data
-  data Json // full JSON data from third-party API
+  id   String @id @map("_id")
+  data Json
+  
+  @@map("items")
 }

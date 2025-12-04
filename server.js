@@ -1,22 +1,18 @@
-// Express is a framework for building APIs and web apps
-// See also: https://expressjs.com/
+// Express server for Football API app
 import express from 'express'
-// Initialize Express app
 const app = express()
 
-// Serve static files from /public folder (useful when running Node locally, optional on Vercel).
+// Serve static files from /public folder
 app.use(express.static('public'))
-// Define index.html as the root explicitly (useful on Vercel, optional when running Node locally).
+// Define index.html as the root explicitly
 app.get('/', (req, res) => { res.redirect('/index.html') })
 
-// Enable express to parse JSON data with increased size limit for Pokemon data
+// Enable express to parse JSON data with increased size limit
 app.use(express.json({ limit: '1mb' }))
 
-// Our API is defined in a separate module to keep things tidy.
-// Let's import our API endpoints and activate them.
+// Import and activate API routes
 import apiRoutes from './routes/api.js'
 app.use('/', apiRoutes)
-
 
 const port = 3002
 app.listen(port, () => {
