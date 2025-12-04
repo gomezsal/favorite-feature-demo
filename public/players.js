@@ -1,5 +1,5 @@
 // players.js - Render player cards
-import { isFavourite } from '../public/favourites.js'
+import { isFavourite } from './favourites.js'
 
 const renderPlayerList = (players, teamName) => {
   const section = document.querySelector(`section.${teamName}`)
@@ -68,6 +68,3 @@ const renderPlayerList = (players, teamName) => {
 }
 
 export { renderPlayerList }
-
-
-

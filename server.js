@@ -14,7 +14,7 @@ app.use(express.json({ limit: '1mb' }))
 import apiRoutes from './routes/api.js'
 app.use('/', apiRoutes)
 
-const port = 3002
+const port = 3003
 app.listen(port, () => {
     console.log(`Express is live at http://localhost:${port}`)
 })

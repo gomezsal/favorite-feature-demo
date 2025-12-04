@@ -104,5 +104,3 @@ const loadPlayers = async (teamId, teamClassName, API_KEY, API_URL, SEASON) => {
 }
 
 export { createTeamListings }
-
-
