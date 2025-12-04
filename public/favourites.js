@@ -1,4 +1,4 @@
-// favourites.js - Manage favorite players
+// favourites.js
 let favourites = {
     name: 'favourites',
     players: []
@@ -17,21 +17,21 @@ const getFavourites = async () => {
         }
         return favourites
     } catch (err) {
-        console.error('Failed to fetch favourites:', err)
+        console.error('Failed to fetch collection:', err)
         return favourites
     }
 }
 
-// Toggle functionality for adding/removing players from favourites
+// Shared toggle functionality for adding/removing players from collection
 const toggleFavorite = async (playerId, playerData) => {
     try {
         // Find all hearts for this player
         let hearts = document.querySelectorAll(`.favorite[data-player-id="${playerId}"] .heart`)
 
-        // Add loading animation to hearts
+        // Add loading spinner animation to hearts
         hearts.forEach(heart => heart.classList.add('loading'))
 
-        // Send player data to API
+        // Send player data (id and complete player info)
         const response = await fetch('/data', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -52,7 +52,7 @@ const toggleFavorite = async (playerId, playerData) => {
                 item => item.player.id !== playerId
             )
             // Remove from favourites section if it exists
-            document.querySelector(`section.favourites .player-card[data-player-id="${playerId}"]`)?.remove()
+            document.querySelector(`#favourites-container .player-card-${playerId}`)?.remove()
         }
         
         // Update UI based on action for all hearts 
@@ -66,7 +66,6 @@ const toggleFavorite = async (playerId, playerData) => {
     } catch (err) {
         console.error('Failed to toggle favorite:', err)
         // Remove loading state on error
-        let hearts = document.querySelectorAll(`.favorite[data-player-id="${playerId}"] .heart`)
         hearts.forEach(heart => heart.classList.remove('loading'))
         throw err
     }
