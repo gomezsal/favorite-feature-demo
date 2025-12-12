@@ -355,7 +355,7 @@ section.active {
   right: 10px;
   background: transparent; 
   border: 2px transparent;
-  border-radius: 50%;
+  border-radius: none;
   width: 45px;
   height: 45px;
   display: flex;
@@ -421,7 +421,7 @@ section.active {
   padding: 60px 20px;
   background: rgba(0, 0, 0, 0.75);
   border-radius: 15px;
-  border: 3px solid rgba(255, 255, 255, 0.2);
+  border: 3px transparent;
 }
 
 .empty-favourites h2 {
