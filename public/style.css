@@ -355,7 +355,7 @@ section.active {
   right: 10px;
   background: rgba(0, 0, 0, 0.7);
   border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
+  /* border-radius: 50%; */
   width: 45px;
   height: 45px;
   display: flex;
