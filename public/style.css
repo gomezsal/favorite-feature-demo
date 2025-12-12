@@ -7,6 +7,7 @@
 
 nav{
   font-family: "jaro", sans-serif;
+  justify-content: flex-end; /* or right-align the nav */
   justify-content: center;
 }
 nav .nav-btn {
