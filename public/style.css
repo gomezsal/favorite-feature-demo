@@ -377,6 +377,7 @@ section.active {
   height: 2rem;
   border-radius: none transparent;
   border: none;
+  margin: 0px 0px 0px 0px;
 }
 
 .favorite .heart.loading {
