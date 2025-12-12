@@ -415,7 +415,6 @@ section.active {
   font-weight: 700;
   font-size: 3rem;
   margin-bottom: 20px;
-  text-transform: uppercase;
   letter-spacing: 3px;
   text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
 }
